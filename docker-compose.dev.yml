@@ -1,0 +1,25 @@
+services:
+  service-template-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: service-template-dev-dev
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - go-mod-cache:/go/pkg/mod
+      - tmp-build:/app/tmp
+    environment:
+      SERVER_MODE: development
+      SERVER_ADDR: ":8080"
+      SERVER_READ_TIMEOUT: "15"
+      SERVER_WRITE_TIMEOUT: "15"
+      SERVER_MAX_HEADER_BYTES: "1048576"
+      SERVER_CTX_TIMEOUT: "30"
+      LOGGER_LEVEL: info
+      LOGGER_ENCODING: json
+
+volumes:
+  go-mod-cache:
+  tmp-build:
