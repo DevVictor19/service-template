@@ -17,6 +17,7 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 	e.Use(middleware.RequestID())
 	e.Use(middleware.Secure())
 	e.Use(middleware.BodyLimit("2M"))
+	e.Use(makeRequestLoggerMiddleware(s.logger))
 
 	v1 := e.Group("/api/v1")
 
