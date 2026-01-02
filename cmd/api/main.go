@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"servicetemplate/internal/server"
+	"servicetemplate/pkg/db"
 	"servicetemplate/pkg/env"
 	"servicetemplate/pkg/logger"
 )
@@ -18,6 +19,10 @@ func main() {
 		cfg.Logger.Level,
 		cfg.Server.Mode,
 	)
+
+	mysqlDB := db.NewMySqlDB(cfg)
+	logger.Infof("MySQL connected, Status: %#v", mysqlDB.Stats())
+	defer mysqlDB.Close()
 
 	s := server.NewServer(cfg, logger)
 	if err := s.Start(); err != nil {

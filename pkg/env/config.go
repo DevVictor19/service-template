@@ -10,6 +10,7 @@ import (
 type Config struct {
 	Server *Server
 	Logger *Logger
+	MySQL  *MySQL
 }
 
 type Server struct {
@@ -26,6 +27,18 @@ type Logger struct {
 	Encoding string
 }
 
+type MySQL struct {
+	Host            string
+	Port            string
+	User            string
+	DBname          string
+	Password        string
+	MaxOpenConns    int
+	ConnMaxLifetime time.Duration
+	MaxIdleConns    int
+	ConnMaxIdleTime time.Duration
+}
+
 func NewConfig() *Config {
 	{
 		return &Config{
@@ -40,6 +53,17 @@ func NewConfig() *Config {
 			Logger: &Logger{
 				Level:    getString("LOGGER_LEVEL"),
 				Encoding: getString("LOGGER_ENCODING"),
+			},
+			MySQL: &MySQL{
+				Host:            getString("MYSQL_HOST"),
+				Port:            getString("MYSQL_PORT"),
+				User:            getString("MYSQL_USER"),
+				DBname:          getString("MYSQL_DBNAME"),
+				Password:        getString("MYSQL_PASSWORD"),
+				MaxOpenConns:    getInt("MYSQL_MAX_OPEN_CONNS"),
+				ConnMaxLifetime: time.Duration(getInt("MYSQL_CONN_MAX_LIFETIME")) * time.Second,
+				MaxIdleConns:    getInt("MYSQL_MAX_IDLE_CONNS"),
+				ConnMaxIdleTime: time.Duration(getInt("MYSQL_CONN_MAX_IDLE_TIME")) * time.Second,
 			},
 		}
 	}

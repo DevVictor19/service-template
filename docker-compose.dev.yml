@@ -1,15 +1,17 @@
 services:
-  service-template-dev:
+  api:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: service-template-dev
+    container_name: api
     ports:
       - "8080:8080"
     volumes:
       - .:/app
       - go-mod-cache:/go/pkg/mod
       - tmp-build:/app/tmp
+    depends_on:
+      - mysql
     environment:
       SERVER_MODE: development
       SERVER_ADDR: ":8080"
@@ -19,7 +21,30 @@ services:
       SERVER_CTX_TIMEOUT: "30"
       LOGGER_LEVEL: info
       LOGGER_ENCODING: json
+      MYSQL_HOST: mysql
+      MYSQL_PORT: "3306"
+      MYSQL_USER: devuser
+      MYSQL_DBNAME: servicetemplate
+      MYSQL_PASSWORD: devpassword
+      MYSQL_MAX_OPEN_CONNS: "60"
+      MYSQL_CONN_MAX_LIFETIME: "120"
+      MYSQL_MAX_IDLE_CONNS: "30"
+      MYSQL_CONN_MAX_IDLE_TIME: "20"
+
+  mysql:
+    image: mysql:9
+    container_name: mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: servicetemplate
+      MYSQL_USER: devuser
+      MYSQL_PASSWORD: devpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
 
 volumes:
   go-mod-cache:
   tmp-build:
+  mysql-data:
