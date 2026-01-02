@@ -116,10 +116,9 @@ func NewForbiddenError(causes interface{}) RestErr {
 
 // New Internal Server Error
 func NewInternalServerError(causes interface{}) RestErr {
-	result := RestError{
+	return RestError{
 		ErrStatus: http.StatusInternalServerError,
 		ErrError:  InternalServerError.Error(),
 		ErrCauses: causes,
 	}
-	return result
 }
