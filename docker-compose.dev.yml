@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    container_name: service-template-dev-dev
+    container_name: service-template-dev
     ports:
       - "8080:8080"
     volumes:
