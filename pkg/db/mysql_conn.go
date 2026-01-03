@@ -1,15 +1,15 @@
 package db
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"servicetemplate/pkg/env"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
 )
 
-func NewMySqlDB(c *env.Config) *sql.DB {
+func NewMySqlDB(c *env.Config) *sqlx.DB {
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:%s)/%s?parseTime=true&charset=utf8mb4&loc=Local",
 		c.MySQL.User,
@@ -19,7 +19,7 @@ func NewMySqlDB(c *env.Config) *sql.DB {
 		c.MySQL.DBname,
 	)
 
-	db, err := sql.Open("mysql", dsn)
+	db, err := sqlx.Open("mysql", dsn)
 	if err != nil {
 		log.Fatalf("failed to open mysql connection: %v", err)
 	}
