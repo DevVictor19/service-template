@@ -38,7 +38,7 @@ func main() {
 	logger.Infof("MySQL connected, Status: %#v", mysqlDB.Stats())
 	defer mysqlDB.Close()
 
-	s := server.NewServer(cfg, logger)
+	s := server.NewServer(cfg, logger, mysqlDB)
 	if err := s.Start(); err != nil {
 		logger.Fatalf("Error starting server: %v", err)
 	}

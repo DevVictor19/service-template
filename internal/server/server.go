@@ -9,6 +9,7 @@ import (
 	"servicetemplate/pkg/logger"
 	"syscall"
 
+	"github.com/jmoiron/sqlx"
 	"github.com/labstack/echo/v4"
 )
 
@@ -16,13 +17,15 @@ type Server struct {
 	echo   *echo.Echo
 	cfg    *env.Config
 	logger logger.Logger
+	db     *sqlx.DB
 }
 
-func NewServer(cfg *env.Config, logger logger.Logger) *Server {
+func NewServer(cfg *env.Config, logger logger.Logger, db *sqlx.DB) *Server {
 	return &Server{
 		echo:   echo.New(),
 		cfg:    cfg,
 		logger: logger,
+		db:     db,
 	}
 }
 
