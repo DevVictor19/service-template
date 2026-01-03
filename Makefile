@@ -25,3 +25,8 @@ migrate-down:
 
 migrate-status:
 	goose status
+
+.PHONY: gen-swagger
+
+gen-swagger:
+	swag init -d ./cmd/api/ 

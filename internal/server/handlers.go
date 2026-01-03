@@ -2,10 +2,12 @@ package server
 
 import (
 	"net/http"
+	_ "servicetemplate/docs"
 	"servicetemplate/pkg/utils"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
 func (s *Server) MapHandlers(e *echo.Echo) error {
@@ -21,12 +23,12 @@ func (s *Server) MapHandlers(e *echo.Echo) error {
 
 	v1 := e.Group("/api/v1")
 
-	health := v1.Group("/health")
-
-	health.GET("", func(c echo.Context) error {
+	v1.GET("/health", func(c echo.Context) error {
 		s.logger.Infof("Health check RequestID: %s", utils.GetRequestID(c))
 		return c.JSON(http.StatusOK, map[string]string{"status": "OK"})
 	})
+
+	v1.GET("/swagger/*", echoSwagger.WrapHandler)
 
 	return nil
 }

@@ -1,0 +1,16 @@
+basePath: /api/v1
+host: localhost:8080
+info:
+  contact:
+    email: antoniovictor12@live.com
+    name: DevVictor19
+    url: https://www.linkedin.com/in/antonio-victor-borges-4a2852228/
+  description: This is a sample server for a Service Template API.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: Service Template API
+  version: "1.0"
+paths: {}
+swagger: "2.0"

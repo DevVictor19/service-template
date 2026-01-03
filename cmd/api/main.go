@@ -8,6 +8,20 @@ import (
 	"servicetemplate/pkg/logger"
 )
 
+// @title Service Template API
+// @version 1.0
+// @description This is a sample server for a Service Template API.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name DevVictor19
+// @contact.url https://www.linkedin.com/in/antonio-victor-borges-4a2852228/
+// @contact.email antoniovictor12@live.com
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:8080
+// @BasePath /api/v1
 func main() {
 	log.Println("Starting api server...")
 
