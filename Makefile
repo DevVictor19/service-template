@@ -29,4 +29,8 @@ migrate-status:
 .PHONY: gen-swagger
 
 gen-swagger:
-	swag init -d ./cmd/api/ 
+	swag init \
+  -g cmd/api/main.go \
+  -d ./ \
+  --parseInternal \
+  --parseDependency
