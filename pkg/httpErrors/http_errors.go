@@ -122,3 +122,12 @@ func NewInternalServerError(causes interface{}) RestErr {
 		ErrCauses: causes,
 	}
 }
+
+// Parse From Error
+func NewFromError(err error) (int, RestErr) {
+	var restErr RestErr
+	if errors.As(err, &restErr) {
+		return restErr.Status(), restErr
+	}
+	return http.StatusInternalServerError, NewInternalServerError(err)
+}
