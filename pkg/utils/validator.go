@@ -9,7 +9,7 @@ import (
 var validate *validator.Validate
 
 func init() {
-	validate = validator.New()
+	validate = validator.New(validator.WithRequiredStructEnabled())
 }
 
 func ValidateStruct(ctx context.Context, s interface{}) error {
